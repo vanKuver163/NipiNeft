@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ygmfJ48HG+I=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\localadmin\\RiderProjects\\Snipineft\\Snipineft\\Snipineft.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\localadmin\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.8\\microsoft.extensions.dependencyinjection.9.0.8.nupkg.sha512",
+    "C:\\Users\\localadmin\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.8\\microsoft.extensions.dependencyinjection.abstractions.9.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}
