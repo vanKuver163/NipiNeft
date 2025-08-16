@@ -25,5 +25,5 @@ public class MainViewModel : BaseViewModel
         _xmlParser = xmlParser;
         _fileService = fileService;
         OpenFileCommand = new RelayCommand(() => _fileService.OpenFile(Payrolls));
-    }пше
+    }
 }
