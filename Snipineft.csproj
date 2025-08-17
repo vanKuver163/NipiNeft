@@ -13,4 +13,9 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Template.XLSX" />
+      <EmbeddedResource Include="Template.XLSX" />
+    </ItemGroup>
+
 </Project>

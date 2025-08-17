@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Snipineft.Commands;
 using Snipineft.Contracts;
 using Snipineft.Models;
+using System.IO;
 
 namespace Snipineft.ViewModels;
 
@@ -34,12 +36,14 @@ public class MainViewModel : BaseViewModel
 
     public void UpdateItem(Payroll item) => _payrollDataManager.UpdateItem(item);
     public ICommand OpenFileCommand { get; }
+    public ICommand SaveCommand { get; }
 
-    public MainViewModel(IPayrollDataManager payrollDataManager)
+    public MainViewModel(IPayrollDataManager payrollDataManager, IExcelService excelService)
     {
         _payrollDataManager = payrollDataManager;
         _payrollDataManager.PayrollsChanged += () => OnPropertyChanged(nameof(Payrolls)); 
         _payrollDataManager.TotalCostChanged += () => OnPropertyChanged(nameof(TotalCost));
         OpenFileCommand = new RelayCommand(_payrollDataManager.LoadPayrolls);
+        SaveCommand = new RelayCommand(() => excelService.ExportToExcel(Payrolls));
     }
 }

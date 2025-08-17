@@ -15,6 +15,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0"
                    FontSize="20"
@@ -49,5 +50,17 @@
                   Style="{StaticResource ComboBoxFlatStyle}"
                   AlternationCount="2"
                   SelectedValue="{Binding SelectedSort}" />
+        <Button Grid.Column="4"
+                Style="{StaticResource ButtonStyle}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                ToolTip="Экспорт в Excel"
+                Margin="5,0,20,0"
+                Height="40"
+                Width="130"
+                FontSize="16"
+                Foreground="White"
+                Content="Экспорт в Excel"
+                Command="{Binding SaveCommand}"/>
     </Grid>
 </UserControl>
