@@ -13,7 +13,6 @@ public class XmlParserService : IXmlParserService
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
     
-  
         var settings = new XmlReaderSettings
         {
             DtdProcessing = DtdProcessing.Ignore
@@ -21,51 +20,45 @@ public class XmlParserService : IXmlParserService
     
         using var reader = XmlReader.Create(filePath, settings);
         var doc = XDocument.Load(reader);
-        
-            //var doc = XDocument.Load(filePath);
+   
         var payrolls = new List<Payroll>();
 
         foreach (var dataElement in doc.Descendants("Data"))
         {
-            var payroll = new Payroll
-            {
-                Name = dataElement.Attribute("Caption")?.Value ?? string.Empty,
-                Components = new List<Component>()
-            };
             var docInfo = dataElement.Element("DocInfo");
             var number = docInfo?.Attribute("Code")?.Value ?? string.Empty;
             
-            ProcessResources(dataElement.Element("Tz"), payroll.Components, number, "Трудозатраты");
-            ProcessResources(dataElement.Element("Mch"), payroll.Components, number, "Машины и механизмы");
-            ProcessResources(dataElement.Element("Mat"), payroll.Components, number, "Материалы");
-            ProcessResources(dataElement.Element("Tr"), payroll.Components, number, "Перевозка");
-            ProcessResources(dataElement.Element("Load"), payroll.Components, number, "Погрузка/разгрузка");
-            payrolls.Add(payroll);
+            payrolls.AddRange(ProcessResources(dataElement.Element("Tz"), number, "Трудозатраты"));
+            payrolls.AddRange(ProcessResources(dataElement.Element("Mch"), number, "Машины и механизмы"));
+            payrolls.AddRange(ProcessResources(dataElement.Element("Mat"), number, "Материалы"));
+            payrolls.AddRange(ProcessResources(dataElement.Element("Tr"), number, "Перевозка"));
+            payrolls.AddRange(ProcessResources(dataElement.Element("Load"), number, "Погрузка/разгрузка"));
         }
+        
         return payrolls;
     }
 
-    private void ProcessResources(XElement? parentElement, ICollection<Component> components, string number,
-        string sectionName)
+    private IEnumerable<Payroll> ProcessResources(XElement? parentElement, string number, string sectionName)
     {
-        if (parentElement == null) return;
-        
+        if (parentElement == null) yield break;
+        int count = 1;
         foreach (var resource in parentElement.Elements("Resource"))
         {
-            var component = new Component
+            yield return new Payroll
             {
+                Id = count,
                 Number = number,
                 Code = resource.Attribute("Code")?.Value ?? string.Empty,
-                Material = resource.Attribute("Caption")?.Value ?? string.Empty,
+                Material = $"{sectionName}: {resource.Attribute("Caption")?.Value ?? string.Empty}",
                 Units = resource.Attribute("Units")?.Value ?? string.Empty,
                 Quantity = ParseDouble(resource.Attribute("Quantity")?.Value),
                 Price = ParseDouble(resource.Element("Price")?.Attribute("CE")?.Value),
                 Total = ParseDouble(resource.Element("Total")?.Attribute("CE")?.Value)
             };
-
-            components.Add(component);
+            count++;
         }
     }
+
     private double ParseDouble(string? value)
     {
         if (string.IsNullOrEmpty(value)) return 0;
@@ -77,5 +70,4 @@ public class XmlParserService : IXmlParserService
         }
         return 0;
     }
-    
 }

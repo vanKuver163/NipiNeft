@@ -8,22 +8,18 @@ namespace Snipineft.ViewModels;
 
 public class MainViewModel : BaseViewModel
 {
-    private readonly IXmlParserService _xmlParser;
-    private readonly IFileService _fileService;
-    private ObservableCollection<Payroll> _payrolls;
+    private ObservableCollection<Payroll> _payrolls = new ObservableCollection<Payroll>();
 
     public ObservableCollection<Payroll> Payrolls
     {
         get => _payrolls;
         set => SetProperty(ref _payrolls, value);
     }
-    
+
     public ICommand OpenFileCommand { get; }
 
-    public MainViewModel(IXmlParserService xmlParser, IFileService fileService)
+    public MainViewModel(IFileService fileService)
     {
-        _xmlParser = xmlParser;
-        _fileService = fileService;
-        OpenFileCommand = new RelayCommand(() => _fileService.OpenFile(Payrolls));
+        OpenFileCommand = new RelayCommand(() => Payrolls = new ObservableCollection<Payroll>(fileService.OpenFile()));
     }
 }

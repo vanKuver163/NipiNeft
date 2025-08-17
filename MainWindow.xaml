@@ -8,8 +8,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid VerticalAlignment="Top">
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <local:HeaderView Grid.Row="0" />
         <local:TableView Grid.Row="1" />

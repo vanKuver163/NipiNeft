@@ -6,9 +6,9 @@
              xmlns:vm="clr-namespace:Snipineft.ViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="800">
     <Grid
-        Background="#3B82F6"
+        Background="#0A4861"
         Height="50">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -20,6 +20,7 @@
                    Foreground="#FFFFFF"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center"
+                   Margin="10,0,0,0"
                    Text="Ведомость поставки: " />
         <Button Grid.Column="1"
                 Style="{StaticResource ButtonStyle}"

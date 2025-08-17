@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using System.Windows;
 using Microsoft.Win32;
 using Snipineft.Contracts;
@@ -8,7 +7,7 @@ namespace Snipineft.Services;
  
 public class FileService(IXmlParserService xmlParser) : IFileService
 {
-    public void OpenFile(ObservableCollection<Payroll> payrolls)
+    public IEnumerable<Payroll> OpenFile()
     {
         var openFileDialog = new OpenFileDialog
         {
@@ -20,14 +19,15 @@ public class FileService(IXmlParserService xmlParser) : IFileService
         {
             try
             {
-                var parsedPayrolls = xmlParser.ParseXml(openFileDialog.FileName);
-                payrolls = new ObservableCollection<Payroll>(parsedPayrolls);
+                return xmlParser.ParseXml(openFileDialog.FileName);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при загрузке файла: {ex.Message}", "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
+                return [];
             }
         }
+        else return [];
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Snipineft")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+277d6f05c2d5443be6dd613e4fde61e458acc0a1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Snipineft")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Snipineft")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -30,3 +30,12 @@ C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\obj\Debug\net8.0-windows\S
 C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\obj\Debug\net8.0-windows\Views\HeaderView.g.cs
 C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\obj\Debug\net8.0-windows\Views\HeaderView.baml
 C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\obj\Debug\net8.0-windows\Resources\Styles\ButtonStyles.baml
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\obj\Debug\net8.0-windows\Snipineft.sourcelink.json
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\ClosedXML.dll
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\ClosedXML.Parser.dll
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.dll
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.Framework.dll
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\ExcelNumberFormat.dll
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\RBush.dll
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\System.IO.Packaging.dll

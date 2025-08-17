@@ -5,5 +5,5 @@ namespace Snipineft.Contracts;
 
 public interface IFileService
 {
-    void OpenFile(ObservableCollection<Payroll> payrolls);
+    IEnumerable<Payroll> OpenFile();
 }

@@ -7,6 +7,7 @@ public partial class App : Application
 {
     protected override void OnStartup(StartupEventArgs e)
     {
+        FrameworkCompatibilityPreferences.KeepTextBoxDisplaySynchronizedWithTextProperty = false;
         base.OnStartup(e);
        
         var viewModelLocator = new ViewModelLocator();

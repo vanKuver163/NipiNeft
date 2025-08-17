@@ -3,302 +3,181 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Snipineft.Views"
+             xmlns:vm="clr-namespace:Snipineft.ViewModels"
+             xmlns:model="clr-namespace:Snipineft.Models"
+             d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="1000">
     <Grid>
         <DataGrid
+            Background="Transparent"
+            AlternationCount="2"
+            RowHeaderWidth="0"
+            AutoGenerateColumns="False"
+            BorderBrush="Transparent"
+            GridLinesVisibility="None"
+            SelectionMode="Single"
+            IsReadOnly="False"
+            BeginningEdit="DataGrid_BeginningEdit"
+            ItemsSource="{Binding Payrolls}"
+            RowStyle="{StaticResource DataGridRowStyle}"
+            CellStyle="{StaticResource DataGridCellStyle}"
             ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Width="*">
+                <DataGridTemplateColumn Width="Auto">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
-                            <Grid HorizontalAlignment="Stretch">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0"  Orientation="Vertical" VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
-                                    <TextBlock Text="№" HorizontalAlignment="Center" />
-                                    <TextBlock Text="п/п" HorizontalAlignment="Center" />
-                                </StackPanel>
-                                <Border Grid.Row="1"
-                                        HorizontalAlignment="Stretch"
-                                        BorderBrush="Black"
-                                        BorderThickness="0,2,0,0">
-                                    <TextBlock Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Border>
-                            </Grid>
+                            <ContentControl ContentTemplate="{StaticResource ColumnHeaderTemplate}">
+                                <ContentControl.Content>
+                                    <model:ColumnHeaderData Title="№ сметы" 
+                                                            Subtitle=""
+                                                            ColumnNumber="1"/>
+                                </ContentControl.Content>
+                            </ContentControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Id}" HorizontalAlignment="Center" />
+                            <TextBlock
+                                Style="{StaticResource DataGridTextBlockStyle}"
+                                Text="{Binding Number}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <ContentControl ContentTemplate="{StaticResource ColumnHeaderTemplate}">
+                                <ContentControl.Content>
+                                    <model:ColumnHeaderData Title="Код материала" 
+                                                            Subtitle=""
+                                                            ColumnNumber="2"/>
+                                </ContentControl.Content>
+                            </ContentControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Style="{StaticResource DataGridTextBlockStyle}"
+                                Text="{Binding Code}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
-                                    <TextBlock Text="№ сметы" HorizontalAlignment="Center" />
-                                </StackPanel>
-                                <Border Grid.Row="1"
-                                        BorderBrush="Black"
-                                        BorderThickness="0,2,0,0">
-                                    <TextBlock Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Border>
-                            </Grid>
+                            <ContentControl ContentTemplate="{StaticResource ColumnHeaderTemplate}">
+                                <ContentControl.Content>
+                                    <model:ColumnHeaderData Title="Наименование материала" 
+                                                            Subtitle=""
+                                                            ColumnNumber="3"/>
+                                </ContentControl.Content>
+                            </ContentControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Number}" />
+                            <TextBlock Text="{Binding Material}"
+                                       HorizontalAlignment="Left"
+                                       Style="{StaticResource DataGridTextBlockStyle}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="*">
+                <DataGridTemplateColumn Width="Auto">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
-                                    <TextBlock Text="Обоснование*" HorizontalAlignment="Center" />
-                                </StackPanel>
-                                <Border Grid.Row="1"
-                                        BorderBrush="Black"
-                                        BorderThickness="0,2,0,0">
-                                    <TextBlock Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Border>
-                            </Grid>
+                            <ContentControl ContentTemplate="{StaticResource ColumnHeaderTemplate}">
+                                <ContentControl.Content>
+                                    <model:ColumnHeaderData Title="Ед." 
+                                                            Subtitle="измерения"
+                                                            ColumnNumber="4"/>
+                                </ContentControl.Content>
+                            </ContentControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Code}" />
+                            <TextBlock
+                                Style="{StaticResource DataGridTextBlockStyle}"
+                                Text="{Binding Units}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="*">
+                <DataGridTemplateColumn Width="Auto">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
-                                    <TextBlock Text="Наименование МТР" HorizontalAlignment="Center" />
-                                </StackPanel>
-                                <Border Grid.Row="1"
-                                        BorderBrush="Black"
-                                        BorderThickness="0,2,0,0">
-                                    <TextBlock Text="4" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Border>
-                            </Grid>
+                            <ContentControl ContentTemplate="{StaticResource ColumnHeaderTemplate}">
+                                <ContentControl.Content>
+                                    <model:ColumnHeaderData Title="Общие" 
+                                                            Subtitle="количество"
+                                                            ColumnNumber="4"/>
+                                </ContentControl.Content>
+                            </ContentControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Material}" />
+                            <TextBlock
+                                Style="{StaticResource DataGridTextBlockStyle}"
+                                Text="{Binding Quantity}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource DataGridTextBoxStyle}"
+                                PreviewTextInput="NumberValidationTextBox"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="*">
+                <DataGridTemplateColumn Width="Auto">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
-                                    <TextBlock Text="Ед." HorizontalAlignment="Center" />
-                                    <TextBlock Text="измерения" HorizontalAlignment="Center" />
-                                </StackPanel>
-                                <Border Grid.Row="1"
-                                        BorderBrush="Black"
-                                        BorderThickness="0,2,0,0">
-                                    <TextBlock Text="5" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Border>
-                            </Grid>
+                            <ContentControl ContentTemplate="{StaticResource ColumnHeaderTemplate}">
+                                <ContentControl.Content>
+                                    <model:ColumnHeaderData Title="Цена за ед.***" 
+                                                            Subtitle="(руб. без НДС)"
+                                                            ColumnNumber="6"/>
+                                </ContentControl.Content>
+                            </ContentControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Units}" />
+                            <TextBlock
+                                Style="{StaticResource DataGridTextBlockStyle}"
+                                Text="{Binding Price}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
+    
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox
+                                Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"
+                                Style="{StaticResource DataGridTextBoxStyle}"
+                                PreviewTextInput="NumberValidationTextBox"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="*">
+                <DataGridTemplateColumn Width="150">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
-                                    <TextBlock Text="Общие" HorizontalAlignment="Center" />
-                                    <TextBlock Text="количество" HorizontalAlignment="Center" />
-                                </StackPanel>
-                                <Border Grid.Row="1"
-                                        BorderBrush="Black"
-                                        BorderThickness="0,2,0,0">
-                                    <TextBlock Text="6" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Border>
-                            </Grid>
+                            <ContentControl ContentTemplate="{StaticResource ColumnHeaderTemplate}">
+                                <ContentControl.Content>
+                                    <model:ColumnHeaderData Title="Сумма (руб. без НДС)" 
+                                                            Subtitle=""
+                                                            ColumnNumber="7"/>
+                                </ContentControl.Content>
+                            </ContentControl>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Total}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="*">
-                    <DataGridTemplateColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center"
-                                            HorizontalAlignment="Center">
-                                    <TextBlock Text="Цена за ед.***" HorizontalAlignment="Center" />
-                                    <TextBlock Text="(руб. без НДС)" HorizontalAlignment="Center" />
-                                </StackPanel>
-                                <Border Grid.Row="1"
-                                        BorderBrush="Black"
-                                        BorderThickness="0,2,0,0">
-                                    <TextBlock Text="7" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.HeaderTemplate>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Price}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="*" Header="Сумма (руб. без НДС)">
-                    <DataGridTemplateColumn.HeaderTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="70" />
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Border Grid.Row="0"
-                                        BorderBrush="Black"
-                                        BorderThickness="0,0,0,2">
-                                        <TextBlock
-                                            Margin="0,5"
-                                            VerticalAlignment="Center"
-                                            Text="Сумма (руб. без НДС)"
-                                            HorizontalAlignment="Center" />
-                                    </Border>
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*" /> 
-                                            <ColumnDefinition Width="2*" /> 
-                                        </Grid.ColumnDefinitions>
-                                        <Border
-                                            BorderBrush="Black"
-                                            BorderThickness="0,0,2,0"
-                                            Grid.Column="0">
-                                            <TextBlock Text="Всего" VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center" />
-                                        </Border>
-                                        <Grid Grid.Column="1">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <Border Grid.Row="0"
-                                                BorderBrush="Black"
-                                                BorderThickness="0,0,0,2">
-                                                <TextBlock Text="в т.ч." HorizontalAlignment="Center" />
-                                            </Border>
-                                            <Grid Grid.Row="1">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" /> 
-                                                    <ColumnDefinition Width="*" /> 
-                                                </Grid.ColumnDefinitions>
-                                                <Border Grid.Column="0" 
-                                                            BorderBrush="Black"
-                                                            BorderThickness="0,0,2,0">
-                                                        <TextBlock Text="материал" HorizontalAlignment="Center" />
-                                                </Border>
-                                                <TextBlock Grid.Column="1" Text="оборудование"
-                                                           HorizontalAlignment="Center" />
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0"
-                                            BorderThickness="0,2,2,0"
-                                            BorderBrush="Black">
-                                        <TextBlock Text="8" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    </Border>
-                                    <Border Grid.Column="1"
-                                            BorderThickness="0,2,2,0"
-                                            BorderBrush="Black">
-                                        <TextBlock Text="9" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    </Border>
-                                    <Border Grid.Column="2"
-                                            BorderThickness="0,2,0,0"
-                                            BorderBrush="Black">
-                                        <TextBlock Text="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    </Border>
-                                </Grid>
-                            </Grid>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.HeaderTemplate>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Total}" HorizontalAlignment="Center" />
-                                <Grid Grid.Column="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Total}" HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Column="1" Text="{Binding Total}" HorizontalAlignment="Center" />
-                                </Grid>
-                            </Grid>
+                            <TextBlock
+                                Style="{StaticResource DataGridTextBlockStyle}"
+                                Text="{Binding Total}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
