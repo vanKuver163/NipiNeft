@@ -39,3 +39,4 @@ C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\E
 C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\RBush.dll
 C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
 C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\bin\Debug\net8.0-windows\System.IO.Packaging.dll
+C:\Users\localadmin\RiderProjects\Snipineft\Snipineft\obj\Debug\net8.0-windows\Resources\Styles\ComboBoxStyles.baml

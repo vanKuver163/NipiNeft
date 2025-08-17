@@ -21,6 +21,7 @@ public class ViewModelLocator
     {
         services.AddSingleton<IXmlParserService, XmlParserService>();
         services.AddSingleton<IFileService, FileService>();
+        services.AddSingleton<IPayrollDataManager, PayrollDataManager>();
         
         services.AddSingleton<MainViewModel>();
     }

@@ -8,18 +8,35 @@ namespace Snipineft.ViewModels;
 
 public class MainViewModel : BaseViewModel
 {
-    private ObservableCollection<Payroll> _payrolls = new ObservableCollection<Payroll>();
+    private readonly IPayrollDataManager _payrollDataManager;
+    private string? _selectedSort = string.Empty;
+    public ObservableCollection<Payroll> Payrolls => _payrollDataManager.Payrolls;
+    public ObservableCollection<string> Sorts { get; set; } = ["Код материала", "Материал"];
 
-    public ObservableCollection<Payroll> Payrolls
+    public string? SelectedSort
     {
-        get => _payrolls;
-        set => SetProperty(ref _payrolls, value);
+        get => _selectedSort;
+        set
+        {
+            SetProperty(ref _selectedSort, value);
+            switch (SelectedSort)
+            {
+                case "Код материала":
+                    _payrollDataManager.SortPayrolls(p=> p.Code);
+                    break;
+                case "Материал":
+                    _payrollDataManager.SortPayrolls(p=> p.Material);
+                    break;
+            }
+        }
     }
 
     public ICommand OpenFileCommand { get; }
 
-    public MainViewModel(IFileService fileService)
+    public MainViewModel(IPayrollDataManager payrollDataManager)
     {
-        OpenFileCommand = new RelayCommand(() => Payrolls = new ObservableCollection<Payroll>(fileService.OpenFile()));
+        _payrollDataManager = payrollDataManager;
+        _payrollDataManager.PayrollsChanged += () =>  OnPropertyChanged(nameof(Payrolls));
+        OpenFileCommand = new RelayCommand(_payrollDataManager.LoadPayrolls);
     }
 }
