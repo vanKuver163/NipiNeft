@@ -10,8 +10,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <local:HeaderView Grid.Row="0" />
         <local:TableView Grid.Row="1" />
+        <local:FooterView Grid.Row="2" />
     </Grid>
 </Window>

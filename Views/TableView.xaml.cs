@@ -1,7 +1,10 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using Snipineft.Models;
+using Snipineft.ViewModels;
 
 namespace Snipineft.Views;
 
@@ -44,6 +47,14 @@ public partial class TableView
         catch
         {
             e.Handled = true;
+        }
+    }
+
+    private void DataGrid_CellEditEnding(object? sender, DataGridCellEditEndingEventArgs e)
+    {
+        if (e.EditAction == DataGridEditAction.Commit && e.Row.Item is Payroll editedItem)
+        {
+            (DataContext as MainViewModel)?.UpdateItem(editedItem);
         }
     }
 }

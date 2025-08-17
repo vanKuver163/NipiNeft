@@ -11,7 +11,8 @@ public class MainViewModel : BaseViewModel
     private readonly IPayrollDataManager _payrollDataManager;
     private string? _selectedSort = string.Empty;
     public ObservableCollection<Payroll> Payrolls => _payrollDataManager.Payrolls;
-    public ObservableCollection<string> Sorts { get; set; } = ["Код материала", "Материал"];
+    public double TotalCost => _payrollDataManager.TotalCost;
+    public ObservableCollection<string> Sorts { get; } = ["Код материала", "Материал"];
 
     public string? SelectedSort
     {
@@ -31,12 +32,14 @@ public class MainViewModel : BaseViewModel
         }
     }
 
+    public void UpdateItem(Payroll item) => _payrollDataManager.UpdateItem(item);
     public ICommand OpenFileCommand { get; }
 
     public MainViewModel(IPayrollDataManager payrollDataManager)
     {
         _payrollDataManager = payrollDataManager;
-        _payrollDataManager.PayrollsChanged += () =>  OnPropertyChanged(nameof(Payrolls));
+        _payrollDataManager.PayrollsChanged += () => OnPropertyChanged(nameof(Payrolls)); 
+        _payrollDataManager.TotalCostChanged += () => OnPropertyChanged(nameof(TotalCost));
         OpenFileCommand = new RelayCommand(_payrollDataManager.LoadPayrolls);
     }
 }

@@ -10,6 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="1000">
     <Grid>
         <DataGrid
+            x:Name="PayrollDg"
             Background="Transparent"
             AlternationCount="2"
             RowHeaderWidth="0"
@@ -18,6 +19,7 @@
             GridLinesVisibility="None"
             SelectionMode="Single"
             IsReadOnly="False"
+            CellEditEnding="DataGrid_CellEditEnding"
             BeginningEdit="DataGrid_BeginningEdit"
             ItemsSource="{Binding Payrolls}"
             RowStyle="{StaticResource DataGridRowStyle}"
