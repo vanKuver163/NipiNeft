@@ -4,9 +4,8 @@ using Snipineft.Models;
 
 namespace Snipineft.ViewModels;
 
-public class PayrollDataManager : BaseViewModel, IPayrollDataManager
+public class PayrollDataManager(IFileService fileService) : BaseViewModel, IPayrollDataManager
 {
-    private readonly IFileService _fileService;
     private ObservableCollection<Payroll> _payrolls = new ObservableCollection<Payroll>();
     private double _totalCost;
 
@@ -42,13 +41,7 @@ public class PayrollDataManager : BaseViewModel, IPayrollDataManager
     public event Action? PayrollsChanged;
     public event Action? TotalCostChanged;
 
-    public PayrollDataManager(IFileService fileService)
-    {
-        _fileService = fileService;
-    }
-
-    public void LoadPayrolls() => Payrolls = new ObservableCollection<Payroll>(_fileService.OpenFile());
-
+    public void LoadPayrolls() => Payrolls = new ObservableCollection<Payroll>(fileService.OpenFile());
     public void SortPayrolls<TKey>(Func<Payroll, TKey> keySelector) =>
         Payrolls = new ObservableCollection<Payroll>(Payrolls.OrderBy(keySelector));
 }

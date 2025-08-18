@@ -12,7 +12,8 @@ public class ExcelService : IExcelService
 {
     public bool ExportToExcel(IEnumerable<Payroll> payrolls)
     {
-        if (payrolls == null || !payrolls.Any())
+        var enumerable = payrolls.ToList();
+        if (!enumerable.Any())
         {
             MessageBox.Show("Нет данных для экспорта", "Ошибка",
                 MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -40,7 +41,7 @@ public class ExcelService : IExcelService
                             ?? throw new InvalidOperationException("Лист не найден в шаблоне");
 
             int startRow = 13;
-            foreach (var payroll in payrolls)
+            foreach (var payroll in enumerable)
             {
                 var row = worksheet.Row(startRow++);
                 row.Cell(1).Value = payroll.Id;
@@ -55,7 +56,7 @@ public class ExcelService : IExcelService
                 row.Cell(10).Value = string.Empty;
             }
 
-            var totalCost = payrolls.Sum(x => x.Total);
+            var totalCost = enumerable.Sum(x => x.Total);
             var nds = totalCost * 0.2;
             var totalCostWithNds = totalCost + nds;
 
@@ -70,7 +71,7 @@ public class ExcelService : IExcelService
                 "ВСЕГО ПО РАЗДЕЛУ 1 МТР поставки оператора \"Подрядчик\" с учетом НДС",
                 "Х", "Х", "X", totalCostWithNds, totalCostWithNds);
 
-            FormatWorksheet(worksheet, startRow - 1, totalWithNdsRow);
+            FormatWorksheet(worksheet, totalWithNdsRow);
 
             workbook.SaveAs(saveDialog.FileName);
             MessageBox.Show($"Отчет успешно сохранен:\n{saveDialog.FileName}", "Успех");
@@ -96,7 +97,7 @@ public class ExcelService : IExcelService
         row.Cell(4).Style.Font.Bold = true;
     }
 
-    private void FormatWorksheet(IXLWorksheet worksheet, int lastDataRow, int lastRow)
+    private void FormatWorksheet(IXLWorksheet worksheet, int lastRow)
     {
         worksheet.Column(4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
         for (int col = 1; col <= 10; col++)

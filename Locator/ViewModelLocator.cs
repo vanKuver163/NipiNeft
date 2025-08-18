@@ -23,7 +23,6 @@ public class ViewModelLocator
         services.AddSingleton<IFileService, FileService>();
         services.AddSingleton<IExcelService, ExcelService>();
         services.AddSingleton<IPayrollDataManager, PayrollDataManager>();
-        
         services.AddSingleton<MainViewModel>();
     }
 

@@ -5,7 +5,7 @@ namespace Snipineft.Contracts;
 
 public interface IPayrollDataManager
 {
-    ObservableCollection<Payroll> Payrolls { get;}
+    ObservableCollection<Payroll> Payrolls { get; }
     double TotalCost { get; }
     void LoadPayrolls();
     void SortPayrolls<TKey>(Func<Payroll, TKey> keySelector);
